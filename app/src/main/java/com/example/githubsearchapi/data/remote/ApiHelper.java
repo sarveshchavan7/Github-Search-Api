@@ -3,6 +3,8 @@ package com.example.githubsearchapi.data.remote;
 import com.example.githubsearchapi.data.model.api.contributors.Contributors;
 import com.example.githubsearchapi.data.model.api.searchrepositories.SearchRepositories;
 
+import java.util.List;
+
 import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -16,7 +18,7 @@ public interface ApiHelper {
                                                   @Query("per_page") int perPage);
 
     @GET
-    Single<Contributors> getContributors(@Url String url);
+    Single<List<Contributors>> getContributors(@Url String url);
 
 
 }

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.example.githubsearchapi.BuildConfig;
+import com.example.githubsearchapi.data.remote.ApiHelper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -39,5 +40,11 @@ public class AppModule {
     @Singleton
     Gson provideGson() {
         return new GsonBuilder().create();
+    }
+
+    @Provides
+    @Singleton
+    ApiHelper provideApiHelper(Retrofit retrofit) {
+        return retrofit.create(ApiHelper.class);
     }
 }
