@@ -12,7 +12,7 @@ public interface DbHelper {
 
     Observable<Boolean> saveRepository(Repository repository);
 
-    Observable<List<Contributor>> getContributorsOfRepositoryId(String repositoryId);
+    Observable<List<Contributor>> getContributorsOfRepositoryById(String repositoryId);
 
     Observable<Boolean> saveContributors(List<Contributor> contributors);
 

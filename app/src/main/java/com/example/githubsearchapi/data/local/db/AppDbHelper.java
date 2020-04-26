@@ -29,7 +29,7 @@ public class AppDbHelper implements DbHelper {
     }
 
     @Override
-    public Observable<List<Contributor>> getContributorsOfRepositoryId(String repositoryId) {
+    public Observable<List<Contributor>> getContributorsOfRepositoryById(String repositoryId) {
         return mAppDatabase.contributorDao().loadAllByRepositoryId(repositoryId)
                 .toObservable();
     }
