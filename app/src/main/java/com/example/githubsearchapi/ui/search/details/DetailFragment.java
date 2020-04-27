@@ -5,16 +5,16 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.githubsearchapi.BR;
 import com.example.githubsearchapi.R;
 import com.example.githubsearchapi.ViewModelProviderFactory;
-import com.example.githubsearchapi.data.model.api.searchrepositories.Items;
 import com.example.githubsearchapi.databinding.FragmentDetailBinding;
 import com.example.githubsearchapi.ui.base.BaseFragment;
 import com.example.githubsearchapi.ui.search.SearchViewModel;
+
 
 import javax.inject.Inject;
 
@@ -24,6 +24,9 @@ public class DetailFragment extends BaseFragment<FragmentDetailBinding, SearchVi
     ViewModelProviderFactory factory;
     private SearchViewModel mSearchViewModel;
     private FragmentDetailBinding mFragmentDetailBinding;
+
+    @Inject
+    public DetailContributorAdapter mDetailContributorAdapter;
 
     @Override
     public int getBindingVariable() {
@@ -46,11 +49,18 @@ public class DetailFragment extends BaseFragment<FragmentDetailBinding, SearchVi
         super.onViewCreated(view, savedInstanceState);
         mFragmentDetailBinding = getViewDataBinding();
         initViews();
+        observerContributorData();
+    }
+
+    private void observerContributorData() {
+        getViewModel().mContributorsLiveData.observe(getBaseActivity(),
+                contributors -> mDetailContributorAdapter.updateContributorsList(contributors));
     }
 
     private void initViews() {
         getBaseActivity().setSupportActionBar(mFragmentDetailBinding.toolBar);
-
+        mFragmentDetailBinding.rvContributor.setAdapter(mDetailContributorAdapter);
+        mFragmentDetailBinding.rvContributor.setLayoutManager(new GridLayoutManager(getBaseActivity(), 3));
     }
 
     @Override

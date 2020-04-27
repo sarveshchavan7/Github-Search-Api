@@ -73,7 +73,7 @@ public class RepositoryFragment extends BaseFragment<FragmentRepositoryBinding, 
         mSearchViewModel.mItemPagedList.observe(getViewLifecycleOwner(), (PagedList<Items> items) -> {
             mRepositoryAdapter.submitList(items);
         });
-        mFragmentRepositoryBinding.recyclerViewRepo.setAdapter(mRepositoryAdapter);
+        mFragmentRepositoryBinding.rvRepository.setAdapter(mRepositoryAdapter);
         mRepositoryAdapter.setListener(this);
     }
 
@@ -81,6 +81,6 @@ public class RepositoryFragment extends BaseFragment<FragmentRepositoryBinding, 
     @Override
     public void onItemClicked(Items items) {
         getViewModel().mItemsLiveData.setValue(items);
-
+        getViewModel().getContributors(items, items.getContributorsUrl());
     }
 }

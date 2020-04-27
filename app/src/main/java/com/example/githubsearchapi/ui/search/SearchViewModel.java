@@ -9,7 +9,7 @@ import androidx.paging.PagedList;
 import com.example.githubsearchapi.R;
 import com.example.githubsearchapi.data.DataManager;
 import com.example.githubsearchapi.data.datasource.ItemDataSourceFactory;
-import com.example.githubsearchapi.data.model.api.contributors.Contributors;
+import com.example.githubsearchapi.data.model.api.contributors.Contributor;
 import com.example.githubsearchapi.data.model.api.searchrepositories.Items;
 import com.example.githubsearchapi.ui.base.BaseViewModel;
 import com.example.githubsearchapi.ui.search.details.DetailNavigator;
@@ -25,7 +25,7 @@ public class SearchViewModel extends BaseViewModel<DetailNavigator> {
 
     public MutableLiveData<Items> mItemsLiveData = new MutableLiveData<>();
 
-    public MutableLiveData<List<Contributors>> mContributorsLiveData = new MutableLiveData<>();
+    public MutableLiveData<List<Contributor>> mContributorsLiveData = new MutableLiveData<>();
 
     public ItemDataSourceFactory mItemDataSourceFactory;
 
@@ -55,12 +55,27 @@ public class SearchViewModel extends BaseViewModel<DetailNavigator> {
         return mItemsLiveData.getValue();
     }
 
-    public void getContributors(String url) {
+    public void getContributors(Items item, String url) {
+        setIsLoading(true);
         getCompositeDisposable().add(getDataManager()
                 .getContributors(url)
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
                 .subscribe(contributors -> {
+                    setIsLoading(false);
                     mContributorsLiveData.setValue(contributors);
+                    getCompositeDisposable().add(getDataManager()
+                            .saveRepository(item)
+                            .subscribeOn(getSchedulerProvider().io())
+                            .subscribe(aBoolean -> {
+                                if (aBoolean) {
+                                    getCompositeDisposable().add(getDataManager()
+                                            .saveRepositoryAndContributors(item, contributors)
+                                            .subscribeOn(getSchedulerProvider().io()).subscribe());
+                                }
+                            }));
                 }, throwable -> {
+                    setIsLoading(false);
                     getNavigator().handleError(throwable);
                     getNavigator().showMessage(R.string.some_thing_went_wrong);
                 })

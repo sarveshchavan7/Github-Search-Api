@@ -1,6 +1,6 @@
 package com.example.githubsearchapi.data.remote;
 
-import com.example.githubsearchapi.data.model.api.contributors.Contributors;
+import com.example.githubsearchapi.data.model.api.contributors.Contributor;
 import com.example.githubsearchapi.data.model.api.searchrepositories.SearchRepositories;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
-    public Single<List<Contributors>> getContributors(String url) {
+    public Single<List<Contributor>> getContributors(String url) {
         return mApiHelper.getContributors(url);
     }
 }

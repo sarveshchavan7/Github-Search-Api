@@ -1,13 +1,17 @@
 package com.example.githubsearchapi.data;
 
 
+import android.util.Log;
+
 import com.example.githubsearchapi.data.local.db.DbHelper;
 import com.example.githubsearchapi.data.local.prefs.PreferencesHelper;
-import com.example.githubsearchapi.data.model.api.contributors.Contributors;
+import com.example.githubsearchapi.data.model.api.contributors.Contributor;
+import com.example.githubsearchapi.data.model.api.searchrepositories.Items;
 import com.example.githubsearchapi.data.model.api.searchrepositories.SearchRepositories;
-import com.example.githubsearchapi.data.model.db.Contributor;
-import com.example.githubsearchapi.data.model.db.Repository;
+import com.example.githubsearchapi.data.model.db.ContributorEntity;
+import com.example.githubsearchapi.data.model.db.RepositoryEntity;
 import com.example.githubsearchapi.data.remote.ApiHelper;
+import com.example.githubsearchapi.utils.rx.SchedulerProvider;
 
 import java.util.List;
 
@@ -15,11 +19,17 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 @Singleton
 public class AppDataManager implements DataManager {
 
+    private static final String TAG = AppDataManager.class.getSimpleName();
 
     private final ApiHelper mApiHelper;
 
@@ -36,18 +46,18 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Observable<Boolean> saveRepository(Repository repository) {
-        return mDbHelper.saveRepository(repository);
+    public Observable<Boolean> saveRepository(RepositoryEntity repositoryEntity) {
+        return mDbHelper.saveRepository(repositoryEntity);
     }
 
     @Override
-    public Observable<List<Contributor>> getContributorsOfRepositoryById(String repositoryId) {
+    public Observable<List<ContributorEntity>> getContributorsOfRepositoryById(String repositoryId) {
         return mDbHelper.getContributorsOfRepositoryById(repositoryId);
     }
 
     @Override
-    public Observable<Boolean> saveContributors(List<Contributor> contributors) {
-        return mDbHelper.saveContributors(contributors);
+    public Observable<Boolean> saveContributors(List<ContributorEntity> contributorEntities) {
+        return mDbHelper.saveContributors(contributorEntities);
     }
 
     @Override
@@ -56,17 +66,38 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<List<Contributors>> getContributors(String url) {
+    public Single<List<Contributor>> getContributors(String url) {
+        // Check in cache or else make api call
         return mApiHelper.getContributors(url);
     }
 
     @Override
-    public void saveRepositoryAndContributors(Repository repository, List<Contributor> contributors) {
-        saveContributors(Observable.fromIterable(contributors)
-                .map(contributor -> {
-                    contributor.repositoryId = repository.id;
-                    return contributor;
-                }).toList().blockingGet());
-        saveRepository(repository);
+    public RepositoryEntity convertItemToEntity(Items items) {
+        return new RepositoryEntity(items.getName(),
+                items.getFullName(),
+                items.getId(),
+                items.getDescription());
+    }
+
+    @Override
+    public List<ContributorEntity> convertContributorsToEntity(Integer repositoryId, List<Contributor> contributors) {
+        return Observable.fromIterable(contributors)
+                .map(contributor -> new ContributorEntity(contributor.getId(),
+                        repositoryId,
+                        contributor.getUrl(),
+                        contributor.getLogin())).toList().blockingGet();
+    }
+
+
+    @Override
+    public Observable<Boolean> saveRepository(Items item) {
+        return saveRepository(convertItemToEntity(item))
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io());
+    }
+
+    @Override
+    public Observable<Boolean> saveRepositoryAndContributors(Items item, List<Contributor> contributors) {
+        return saveContributors(convertContributorsToEntity(item.getId(), contributors));
     }
 }

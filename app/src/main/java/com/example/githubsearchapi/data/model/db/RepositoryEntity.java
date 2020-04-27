@@ -8,7 +8,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Entity(tableName = "repository")
-public class Repository {
+public class RepositoryEntity {
 
     public String name;
 
@@ -20,6 +20,12 @@ public class Repository {
     @PrimaryKey
     public Integer id;
 
-
     public String description;
+
+    public RepositoryEntity(String name, String fullName, Integer id, String description) {
+        this.name = name;
+        this.fullName = fullName;
+        this.id = id;
+        this.description = description;
+    }
 }

@@ -1,6 +1,6 @@
 package com.example.githubsearchapi.data.remote;
 
-import com.example.githubsearchapi.data.model.api.contributors.Contributors;
+import com.example.githubsearchapi.data.model.api.contributors.Contributor;
 import com.example.githubsearchapi.data.model.api.searchrepositories.SearchRepositories;
 
 import java.util.List;
@@ -18,6 +18,6 @@ public interface ApiHelper {
                                                   @Query("per_page") int perPage);
 
     @GET
-    Single<List<Contributors>> getContributors(@Url String url);
+    Single<List<Contributor>> getContributors(@Url String url);
 
 }

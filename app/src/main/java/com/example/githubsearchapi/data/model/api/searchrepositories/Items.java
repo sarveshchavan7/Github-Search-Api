@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 
+import com.example.githubsearchapi.data.model.db.RepositoryEntity;
 import com.google.gson.annotations.SerializedName;
 
 public class Items {
@@ -923,4 +924,19 @@ public class Items {
         Items Item = (Items) obj;
         return Item.id == this.id;
     }
+
+    Items(String name, String fullName, String description, Integer repositoryId) {
+        this.id = repositoryId;
+        this.name = name;
+        this.fullName = fullName;
+        this.description = description;
+    }
+
+    Items fromEntity(RepositoryEntity repositoryEntity) {
+        return new Items(repositoryEntity.name,
+                repositoryEntity.fullName,
+                repositoryEntity.description,
+                repositoryEntity.id);
+    }
+
 }

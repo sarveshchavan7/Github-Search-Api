@@ -7,19 +7,19 @@
 
         <variable
             name="viewModel"
-            type="com.example.githubsearchapi.ui.search.SearchViewModel" />
+            type="com.example.githubsearchapi.ui.search.details.DetailContributorViewModel" />
     </data>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="5dp">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            app:cardCornerRadius="20dp">
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            app:cardCornerRadius="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -29,19 +29,22 @@
 
                 <ImageView
                     android:id="@+id/imgAvatar"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:contentDescription="@string/contributor_img"
-                    android:src="@mipmap/ic_launcher" />
+                    app:imageUrl="@{viewModel.imgUrl}" />
 
 
                 <TextView
-                    android:gravity="center"
                     android:id="@+id/tvContributorName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="@{viewModel.contributorName}"
                     android:textColor="@android:color/black"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold|italic" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>

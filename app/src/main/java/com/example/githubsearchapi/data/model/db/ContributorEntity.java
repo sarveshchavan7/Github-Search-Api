@@ -11,15 +11,22 @@ import com.google.gson.annotations.SerializedName;
 @Entity(
         tableName = "contributors",
         foreignKeys = @ForeignKey(
-                entity = Repository.class,
+                entity = RepositoryEntity.class,
                 parentColumns = "id",
                 childColumns = "repository_id"
         )
 )
-public class Contributor {
+public class ContributorEntity {
 
     @PrimaryKey
     public Integer id;
+
+    public ContributorEntity(Integer id, Integer repositoryId, String url, String login) {
+        this.id = id;
+        this.repositoryId = repositoryId;
+        this.url = url;
+        this.login = login;
+    }
 
     @Expose
     @SerializedName("repository_id")

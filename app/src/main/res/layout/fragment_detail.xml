@@ -5,13 +5,15 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.example.githubsearchapi.ui.search.SearchViewModel" />
 
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -22,8 +24,10 @@
             android:layout_height="wrap_content" />
 
         <LinearLayout
+            android:id="@+id/llRepoDetails"
             android:layout_width="match_parent"
             android:layout_height="110dp"
+            android:layout_below="@id/toolBar"
             android:background="@color/colorPrimary"
             android:gravity="center"
             android:orientation="horizontal"
@@ -72,10 +76,34 @@
             android:layout_width="match_parent"
             android:layout_height="50dp" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            tools:listitem="@layout/item_detail_view" />
-    </LinearLayout>
+            android:layout_below="@+id/llRepoDetails"
+            android:gravity="center">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvContributor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/colorPrimaryDark"
+                android:padding="5dp"
+                android:visibility="@{viewModel.isLoading ? View.GONE : View.VISIBLE}"
+                tools:listitem="@layout/item_detail_contributor_view" />
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                android:id="@+id/pbloading"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}" />
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
 </layout>

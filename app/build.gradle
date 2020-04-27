@@ -86,4 +86,5 @@ dependencies {
     def room_version = "2.2.5"
     implementation "androidx.room:room-rxjava2:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 }

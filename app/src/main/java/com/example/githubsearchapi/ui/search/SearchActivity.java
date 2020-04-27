@@ -46,7 +46,7 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding, SearchVi
         super.onCreate(savedInstanceState);
         mActivitySearchBinding = getViewDataBinding();
         setUpFragment();
-        listenForRepoClick();
+        observeRepoClick();
     }
 
     private void setUpFragment() {
@@ -56,13 +56,9 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding, SearchVi
                 .commit();
     }
 
-    private void listenForRepoClick() {
-        getViewModel().mItemsLiveData.observe(this, new Observer<Items>() {
-            @Override
-            public void onChanged(Items items) {
-                showDetailFragment();
-            }
-        });
+    private void observeRepoClick() {
+        getViewModel().mItemsLiveData.observe(this,
+                items -> showDetailFragment());
 
     }
 
