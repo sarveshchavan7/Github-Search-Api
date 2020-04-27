@@ -14,8 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
-import com.example.utils.CommonUtils;
-import com.example.utils.NetworkUtils;
+import com.example.githubsearchapi.utils.CommonUtils;
+import com.example.githubsearchapi.utils.NetworkUtils;
 
 import dagger.android.support.DaggerAppCompatActivity;
 

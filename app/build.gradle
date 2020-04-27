@@ -39,9 +39,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation "androidx.cardview:cardview:1.0.0"
 
-    def recyler_view = "1.1.0"
-    implementation "androidx.recyclerview:recyclerview:$recyler_view"
+    def recycler_view = "1.1.0"
+    implementation "androidx.recyclerview:recyclerview:$recycler_view"
 
     // Retrofit
     def retrofitVersion = "2.5.0"
@@ -67,17 +68,22 @@ dependencies {
     def paging_version = "2.1.2"
     implementation "android.arch.paging:runtime:$paging_version"
 
-    // Rxjava
-    def rxjava2Version = "2.1.1"
-    implementation "io.reactivex.rxjava2:rxjava:$rxjava2Version"
-    implementation "io.reactivex.rxjava2:rxandroid:$rxjava2Version"
+    // RxJava
+    def rx_java2_Version = "2.1.1"
+    implementation "io.reactivex.rxjava2:rxjava:$rx_java2_Version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rx_java2_Version"
 
     // Rx-Retrofit Call Adapter
-    def rxcalladapter_version = '2.5.0'
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$rxcalladapter_version"
+    def rx_call_adapter_version = '2.5.0'
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rx_call_adapter_version"
+
+    // lifecycle
+    def lifecycle = "2.2.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle"
 
     // Room
     def room_version = "2.2.5"
-    implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-rxjava2:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
 }

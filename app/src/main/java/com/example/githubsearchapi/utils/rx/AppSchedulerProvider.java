@@ -1,4 +1,4 @@
-package com.example.utils.rx;
+package com.example.githubsearchapi.utils.rx;
 
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;

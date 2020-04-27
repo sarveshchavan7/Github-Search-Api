@@ -4,7 +4,7 @@ import androidx.databinding.ObservableBoolean;
 import androidx.lifecycle.ViewModel;
 
 import com.example.githubsearchapi.data.DataManager;
-import com.example.utils.rx.SchedulerProvider;
+import com.example.githubsearchapi.utils.rx.SchedulerProvider;
 
 import java.lang.ref.WeakReference;
 
