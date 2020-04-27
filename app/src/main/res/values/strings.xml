@@ -3,4 +3,6 @@
     <string name="search_repository">Search Repository</string>
     <string name="repo_img">Repo Image</string>
     <string name="repository_name">Repository Name</string>
+    <string name="contributor_img">ContributorImg</string>
+    <string name="some_thing_went_wrong">Some thing went wrong</string>
 </resources>

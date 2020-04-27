@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.example.githubsearchapi.ui.search.repository.RepositoryItemViewModel" />
+            type="com.example.githubsearchapi.ui.search.SearchViewModel" />
 
     </data>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardRepoItem"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_margin="10dp"
-        app:cardCornerRadius="5dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="110dp"
+            android:background="@color/colorPrimary"
             android:gravity="center"
             android:orientation="horizontal"
             android:padding="10dp">
@@ -30,7 +34,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:contentDescription="@string/repo_img"
-                app:imageUrl="@{viewModel.imgUrl}" />
+                app:imageUrl="@{viewModel.getValue().owner.avatarUrl}" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -44,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
-                    android:text="@{viewModel.name}"
+                    android:text="@{viewModel.getValue().name}"
                     android:textColor="@android:color/black"
                     android:textSize="16sp"
                     android:textStyle="bold|italic" />
@@ -54,14 +58,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:ellipsize="end"
-                    android:maxLines="3"
+                    android:maxLines="2"
                     android:scrollHorizontally="true"
                     android:singleLine="false"
-                    android:text="@{viewModel.desc}"
+                    android:text="@{viewModel.getValue().description}"
                     android:textSize="14sp" />
 
             </LinearLayout>
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/tvProjectLink"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:listitem="@layout/item_detail_view" />
+    </LinearLayout>
 </layout>

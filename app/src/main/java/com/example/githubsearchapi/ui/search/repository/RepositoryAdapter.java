@@ -1,6 +1,7 @@
 package com.example.githubsearchapi.ui.search.repository;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,8 @@ import com.example.githubsearchapi.ui.base.BaseViewHolder;
 public class RepositoryAdapter extends PagedListAdapter<Items, BaseViewHolder> {
 
     private static final String TAG = RepositoryAdapter.class.getSimpleName();
+
+    private RepositoryAdapterListener mListener;
 
     public RepositoryAdapter() {
         super(Items.DIFF_CALLBACK);
@@ -47,8 +50,19 @@ public class RepositoryAdapter extends PagedListAdapter<Items, BaseViewHolder> {
                 RepositoryItemViewModel mRepositoryItemViewModel = new RepositoryItemViewModel(items);
                 mItemRepositoryViewBinding.setViewModel(mRepositoryItemViewModel);
                 mItemRepositoryViewBinding.executePendingBindings();
+                mItemRepositoryViewBinding.cardRepoItem.setOnClickListener(v -> {
+                    mListener.onItemClicked(items);
+                });
             }
         }
     }
 
+    public interface RepositoryAdapterListener {
+
+        void onItemClicked(Items items);
+    }
+
+    void setListener(RepositoryAdapterListener listener) {
+        this.mListener = listener;
+    }
 }

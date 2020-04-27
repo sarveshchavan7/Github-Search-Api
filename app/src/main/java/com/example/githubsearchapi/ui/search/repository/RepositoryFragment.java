@@ -18,7 +18,7 @@ import com.example.githubsearchapi.ui.search.SearchViewModel;
 
 import javax.inject.Inject;
 
-public class RepositoryFragment extends BaseFragment<FragmentRepositoryBinding, SearchViewModel> {
+public class RepositoryFragment extends BaseFragment<FragmentRepositoryBinding, SearchViewModel> implements RepositoryAdapter.RepositoryAdapterListener {
 
     private static final String TAG = RepositoryFragment.class.getSimpleName();
     @Inject
@@ -74,7 +74,13 @@ public class RepositoryFragment extends BaseFragment<FragmentRepositoryBinding, 
             mRepositoryAdapter.submitList(items);
         });
         mFragmentRepositoryBinding.recyclerViewRepo.setAdapter(mRepositoryAdapter);
+        mRepositoryAdapter.setListener(this);
     }
 
 
+    @Override
+    public void onItemClicked(Items items) {
+        getViewModel().mItemsLiveData.setValue(items);
+
+    }
 }
