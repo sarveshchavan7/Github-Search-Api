@@ -1,10 +1,14 @@
 package com.example.githubsearchapi.ui.search.details;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
@@ -20,6 +24,7 @@ import javax.inject.Inject;
 
 public class DetailFragment extends BaseFragment<FragmentDetailBinding, SearchViewModel> implements DetailNavigator {
 
+    private static final String TAG = DetailFragment.class.getSimpleName();
     @Inject
     ViewModelProviderFactory factory;
     private SearchViewModel mSearchViewModel;
@@ -42,6 +47,12 @@ public class DetailFragment extends BaseFragment<FragmentDetailBinding, SearchVi
     public SearchViewModel getViewModel() {
         mSearchViewModel = new ViewModelProvider(getBaseActivity(), factory).get(SearchViewModel.class);
         return mSearchViewModel;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mSearchViewModel.setNavigator(this);
     }
 
     @Override
@@ -71,5 +82,19 @@ public class DetailFragment extends BaseFragment<FragmentDetailBinding, SearchVi
     @Override
     public void showMessage(Integer resourceId) {
         Toast.makeText(getBaseActivity(), getString(resourceId), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void openWebView() {
+        try {
+            //Log.d(TAG, mFragmentDetailBinding.tvProjectLink.getText().toString());
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+            intent.setData(Uri.parse(mFragmentDetailBinding.tvProjectLink.getText().toString()));
+            startActivity(intent);
+        } catch (Exception e) {
+            //TODO: log error
+        }
     }
 }

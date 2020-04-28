@@ -1,6 +1,9 @@
 package com.example.githubsearchapi.ui.search;
 
 
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.paging.LivePagedListBuilder;
@@ -80,6 +83,10 @@ public class SearchViewModel extends BaseViewModel<DetailNavigator> {
                     getNavigator().showMessage(R.string.some_thing_went_wrong);
                 })
         );
+    }
+
+    public void openWebView() {
+        getNavigator().openWebView();
     }
 
 }
