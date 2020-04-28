@@ -18,9 +18,11 @@ public interface DataManager extends DbHelper, PreferencesHelper, ApiHelper {
 
     RepositoryEntity convertItemToEntity(Items items);
 
-    List<ContributorEntity> convertContributorsToEntity(Integer repositoryId, List<Contributor> contributors);
+    List<ContributorEntity> convertContributorsToEntity(Integer repositoryId, String contributorsUrl, List<Contributor> contributors);
 
     Observable<Boolean> saveRepository(Items item);
 
-    Observable<Boolean> saveRepositoryAndContributors(Items item, List<Contributor> contributors);
+    Observable<Boolean> saveContributors(Items item, List<Contributor> contributors);
+
+    List<Contributor> convertEntityToContributors(Observable<List<ContributorEntity>> contributorEntities);
 }

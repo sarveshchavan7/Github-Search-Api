@@ -17,7 +17,7 @@ public interface ContributorDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<ContributorEntity> contributorEntities);
 
-    @Query("SELECT * FROM contributors where repository_id =:repositoryId")
-    Single<List<ContributorEntity>> loadAllByRepositoryId(String repositoryId);
+    @Query("SELECT * FROM contributors where contributors_url =:contributorsUrl")
+    Single<List<ContributorEntity>> loadAllByContributorsUrl(String contributorsUrl);
 
 }

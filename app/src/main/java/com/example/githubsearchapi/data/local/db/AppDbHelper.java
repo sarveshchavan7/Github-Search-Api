@@ -1,7 +1,5 @@
 package com.example.githubsearchapi.data.local.db;
 
-import android.util.Log;
-
 import com.example.githubsearchapi.data.model.db.ContributorEntity;
 import com.example.githubsearchapi.data.model.db.RepositoryEntity;
 
@@ -33,8 +31,8 @@ public class AppDbHelper implements DbHelper {
     }
 
     @Override
-    public Observable<List<ContributorEntity>> getContributorsOfRepositoryById(String repositoryId) {
-        return mAppDatabase.contributorDao().loadAllByRepositoryId(repositoryId)
+    public Observable<List<ContributorEntity>> getContributorsOfRepositoryByUrl(String contributorsUrl) {
+        return mAppDatabase.contributorDao().loadAllByContributorsUrl(contributorsUrl)
                 .toObservable();
     }
 

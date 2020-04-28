@@ -18,6 +18,6 @@ public interface ApiHelper {
                                                   @Query("per_page") int perPage);
 
     @GET
-    Single<List<Contributor>> getContributors(@Url String url);
+    Single<List<Contributor>> getContributors(@Url String contributorsUrl);
 
 }

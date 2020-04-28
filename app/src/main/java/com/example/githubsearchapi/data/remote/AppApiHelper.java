@@ -26,7 +26,7 @@ public class AppApiHelper implements ApiHelper {
     }
 
     @Override
-    public Single<List<Contributor>> getContributors(String url) {
-        return mApiHelper.getContributors(url);
+    public Single<List<Contributor>> getContributors(String contributorsUrl) {
+        return mApiHelper.getContributors(contributorsUrl);
     }
 }

@@ -21,11 +21,13 @@ public class ContributorEntity {
     @PrimaryKey
     public Integer id;
 
-    public ContributorEntity(Integer id, Integer repositoryId, String url, String login) {
+    public ContributorEntity(Integer id, Integer repositoryId, String url, String login, String contributorsUrl,String avatarUrl) {
         this.id = id;
         this.repositoryId = repositoryId;
         this.url = url;
         this.login = login;
+        this.contributorsUrl = contributorsUrl;
+        this.avatarUrl = avatarUrl;
     }
 
     @Expose
@@ -33,7 +35,17 @@ public class ContributorEntity {
     @ColumnInfo(name = "repository_id")
     public Integer repositoryId;
 
+    @Expose
+    @SerializedName("contributors_url")
+    @ColumnInfo(name = "contributors_url")
+    public String contributorsUrl;
+
     public String url;
+
+    @Expose
+    @SerializedName("avatar_url")
+    @ColumnInfo(name = "avatar_url")
+    public String avatarUrl;
 
     public String login;
 

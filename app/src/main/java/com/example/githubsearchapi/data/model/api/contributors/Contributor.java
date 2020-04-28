@@ -240,16 +240,18 @@ public class Contributor {
                         "}";
     }
 
-    Contributor(Integer id, String url, String login) {
+    public Contributor(Integer id, String url, String login, String avatarUrl) {
         this.id = id;
         this.url = url;
         this.login = login;
+        this.avatarUrl = avatarUrl;
     }
 
     Contributor fromEntity(ContributorEntity contributorEntity) {
         return new Contributor(contributorEntity.id,
                 contributorEntity.url,
-                contributorEntity.login);
+                contributorEntity.login,
+                contributorEntity.avatarUrl);
     }
 
 

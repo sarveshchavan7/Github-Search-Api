@@ -81,6 +81,6 @@ public class RepositoryFragment extends BaseFragment<FragmentRepositoryBinding, 
     @Override
     public void onItemClicked(Items items) {
         getViewModel().mItemsLiveData.setValue(items);
-        getViewModel().getContributors(items, items.getContributorsUrl());
+        getViewModel().getContributors(items);
     }
 }

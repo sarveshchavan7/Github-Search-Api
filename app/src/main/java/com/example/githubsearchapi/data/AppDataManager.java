@@ -24,6 +24,7 @@ import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 @Singleton
@@ -51,8 +52,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Observable<List<ContributorEntity>> getContributorsOfRepositoryById(String repositoryId) {
-        return mDbHelper.getContributorsOfRepositoryById(repositoryId);
+    public Observable<List<ContributorEntity>> getContributorsOfRepositoryByUrl(String contributorsUrl) {
+        return mDbHelper.getContributorsOfRepositoryByUrl(contributorsUrl);
     }
 
     @Override
@@ -66,9 +67,16 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<List<Contributor>> getContributors(String url) {
+    public Single<List<Contributor>> getContributors(String contributorsUrl) {
         // Check in cache or else make api call
-        return mApiHelper.getContributors(url);
+        Observable<List<ContributorEntity>> cache = getContributorsOfRepositoryByUrl(contributorsUrl)
+                .subscribeOn(Schedulers.io());
+        if (cache != null && cache.blockingFirst().size() > 0) {
+            Log.d(TAG, "GOT FROM CACHE");
+            return Single.just(convertEntityToContributors(cache));
+        }
+        Log.d(TAG, "GOT FROM NETWORK");
+        return mApiHelper.getContributors(contributorsUrl);
     }
 
     @Override
@@ -80,12 +88,14 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public List<ContributorEntity> convertContributorsToEntity(Integer repositoryId, List<Contributor> contributors) {
+    public List<ContributorEntity> convertContributorsToEntity(Integer repositoryId, String contributorsUrl, List<Contributor> contributors) {
         return Observable.fromIterable(contributors)
                 .map(contributor -> new ContributorEntity(contributor.getId(),
                         repositoryId,
                         contributor.getUrl(),
-                        contributor.getLogin())).toList().blockingGet();
+                        contributor.getLogin(),
+                        contributorsUrl,
+                        contributor.getAvatarUrl())).toList().blockingGet();
     }
 
 
@@ -97,7 +107,18 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Observable<Boolean> saveRepositoryAndContributors(Items item, List<Contributor> contributors) {
-        return saveContributors(convertContributorsToEntity(item.getId(), contributors));
+    public Observable<Boolean> saveContributors(Items item, List<Contributor> contributors) {
+        return saveContributors(convertContributorsToEntity(item.getId(), item.getContributorsUrl(), contributors));
+    }
+
+    @Override
+    public List<Contributor> convertEntityToContributors(Observable<List<ContributorEntity>> contributorEntities) {
+        return Observable.fromIterable(contributorEntities.blockingFirst())
+                .subscribeOn(Schedulers.io())
+                .map(contributorEntity ->
+                        new Contributor(contributorEntity.id,
+                                contributorEntity.url,
+                                contributorEntity.login,
+                                contributorEntity.avatarUrl)).toList().blockingGet();
     }
 }

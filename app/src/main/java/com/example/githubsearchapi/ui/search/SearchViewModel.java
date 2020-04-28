@@ -55,10 +55,10 @@ public class SearchViewModel extends BaseViewModel<DetailNavigator> {
         return mItemsLiveData.getValue();
     }
 
-    public void getContributors(Items item, String url) {
+    public void getContributors(Items item) {
         setIsLoading(true);
         getCompositeDisposable().add(getDataManager()
-                .getContributors(url)
+                .getContributors(item.getContributorsUrl())
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(contributors -> {
@@ -70,7 +70,7 @@ public class SearchViewModel extends BaseViewModel<DetailNavigator> {
                             .subscribe(aBoolean -> {
                                 if (aBoolean) {
                                     getCompositeDisposable().add(getDataManager()
-                                            .saveRepositoryAndContributors(item, contributors)
+                                            .saveContributors(item, contributors)
                                             .subscribeOn(getSchedulerProvider().io()).subscribe());
                                 }
                             }));
