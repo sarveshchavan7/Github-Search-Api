@@ -10,6 +10,11 @@ import javax.inject.Singleton;
 
 import io.reactivex.Observable;
 
+/*
+ *   AppDbHelper has implementation of DbHelper
+ *   with room database
+ * */
+
 @Singleton
 public class AppDbHelper implements DbHelper {
 

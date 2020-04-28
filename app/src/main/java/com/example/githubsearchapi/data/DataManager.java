@@ -15,7 +15,6 @@ import io.reactivex.Observable;
 
 public interface DataManager extends DbHelper, PreferencesHelper, ApiHelper {
 
-
     RepositoryEntity convertItemToEntity(Items items);
 
     List<ContributorEntity> convertContributorsToEntity(Integer repositoryId, String contributorsUrl, List<Contributor> contributors);

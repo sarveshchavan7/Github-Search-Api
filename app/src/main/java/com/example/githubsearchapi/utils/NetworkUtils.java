@@ -10,6 +10,9 @@ public final class NetworkUtils {
 
     }
 
+    /*  This method is current not in use but will be needed in future
+     *
+     * */
     public static boolean isNetworkConnected(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm != null) {

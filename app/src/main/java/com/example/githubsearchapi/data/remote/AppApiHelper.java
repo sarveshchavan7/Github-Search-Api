@@ -10,6 +10,10 @@ import javax.inject.Singleton;
 
 import io.reactivex.Single;
 
+/*
+ *   AppApiHelper is providing the implementation of ApiHelper with retrofit support
+ * */
+
 @Singleton
 public class AppApiHelper implements ApiHelper {
 

@@ -18,7 +18,8 @@ import com.example.githubsearchapi.ui.search.SearchViewModel;
 
 import javax.inject.Inject;
 
-public class RepositoryFragment extends BaseFragment<FragmentRepositoryBinding, SearchViewModel> implements RepositoryAdapter.RepositoryAdapterListener {
+public class RepositoryFragment extends BaseFragment<FragmentRepositoryBinding, SearchViewModel>
+        implements RepositoryAdapter.RepositoryAdapterListener {
 
     private static final String TAG = RepositoryFragment.class.getSimpleName();
     @Inject
@@ -41,7 +42,8 @@ public class RepositoryFragment extends BaseFragment<FragmentRepositoryBinding, 
 
     @Override
     public SearchViewModel getViewModel() {
-        mSearchViewModel = new ViewModelProvider(getBaseActivity(), factory).get(SearchViewModel.class);
+        mSearchViewModel = new ViewModelProvider(getBaseActivity(), factory)
+                .get(SearchViewModel.class);
         return mSearchViewModel;
     }
 
@@ -54,19 +56,20 @@ public class RepositoryFragment extends BaseFragment<FragmentRepositoryBinding, 
     }
 
     private void initSearchView() {
-        mFragmentRepositoryBinding.svSearchRepo.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                mSearchViewModel.mItemDataSourceFactory.setQueryString(query);
-                mSearchViewModel.mItemDataSourceFactory.create();
-                return false;
-            }
+        mFragmentRepositoryBinding.svSearchRepo.setOnQueryTextListener
+                (new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        mSearchViewModel.mItemDataSourceFactory.setQueryString(query);
+                        mSearchViewModel.mItemDataSourceFactory.create();
+                        return false;
+                    }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        return false;
+                    }
+                });
     }
 
     private void initAdapter() {

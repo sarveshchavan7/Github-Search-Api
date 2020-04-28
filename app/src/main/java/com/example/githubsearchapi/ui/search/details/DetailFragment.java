@@ -87,7 +87,6 @@ public class DetailFragment extends BaseFragment<FragmentDetailBinding, SearchVi
     @Override
     public void openWebView() {
         try {
-            //Log.d(TAG, mFragmentDetailBinding.tvProjectLink.getText().toString());
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_VIEW);
             intent.addCategory(Intent.CATEGORY_BROWSABLE);

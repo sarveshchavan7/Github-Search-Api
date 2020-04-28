@@ -5,19 +5,20 @@ import android.os.Bundle;
 import com.example.githubsearchapi.BR;
 import com.example.githubsearchapi.R;
 import com.example.githubsearchapi.ViewModelProviderFactory;
-import com.example.githubsearchapi.data.model.api.searchrepositories.Items;
 import com.example.githubsearchapi.databinding.ActivitySearchBinding;
 import com.example.githubsearchapi.ui.base.BaseActivity;
 import com.example.githubsearchapi.ui.search.details.DetailFragment;
 import com.example.githubsearchapi.ui.search.repository.RepositoryFragment;
 
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import javax.inject.Inject;
 
-
+/*
+ *   Activity with shared view model between two fragments
+ *   i.e RepositoryFragment, DetailFragment
+ * */
 public class SearchActivity extends BaseActivity<ActivitySearchBinding, SearchViewModel> {
 
     @Inject

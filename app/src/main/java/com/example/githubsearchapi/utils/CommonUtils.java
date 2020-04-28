@@ -12,6 +12,9 @@ public final class CommonUtils {
     private CommonUtils() {
     }
 
+    /*
+     *   This dialog is currently not in use but will be needed in future
+     * */
     public static ProgressDialog showLoadingDialog(Context context) {
         ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.show();

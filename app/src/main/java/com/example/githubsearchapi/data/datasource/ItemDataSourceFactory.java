@@ -11,6 +11,7 @@ import com.example.githubsearchapi.data.remote.ApiHelper;
 import io.reactivex.disposables.CompositeDisposable;
 
 
+//TODO: can create this class a generic type
 public class ItemDataSourceFactory extends DataSource.Factory {
 
     private MutableLiveData<PageKeyedDataSource<Integer, Items>> mItemLiveDataSource = new MutableLiveData<>();

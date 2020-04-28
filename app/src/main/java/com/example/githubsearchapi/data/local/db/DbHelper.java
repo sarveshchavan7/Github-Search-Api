@@ -7,7 +7,11 @@ import java.util.List;
 
 import io.reactivex.Observable;
 
-
+/*
+ *   All the method related to storing in local db will go here
+ *   And it's implementation can be any thing in our case room(AppDbHelper).
+ *
+ * */
 public interface DbHelper {
 
     Observable<Boolean> saveRepository(RepositoryEntity repositoryEntity);

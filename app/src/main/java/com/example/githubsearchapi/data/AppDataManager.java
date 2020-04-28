@@ -11,7 +11,6 @@ import com.example.githubsearchapi.data.model.api.searchrepositories.SearchRepos
 import com.example.githubsearchapi.data.model.db.ContributorEntity;
 import com.example.githubsearchapi.data.model.db.RepositoryEntity;
 import com.example.githubsearchapi.data.remote.ApiHelper;
-import com.example.githubsearchapi.utils.rx.SchedulerProvider;
 
 import java.util.List;
 
@@ -19,14 +18,16 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.Single;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
+/*
+ *  AppDataManager is implementation of DataManager
+ *  with ApiHelper (AppApiHelper -> retrofit),
+ *       DbHelper (AppDbHelper -> room),
+ *       PreferencesHelper (AppPreferencesHelper -> sp)
+ *
+ * */
 @Singleton
 public class AppDataManager implements DataManager {
 

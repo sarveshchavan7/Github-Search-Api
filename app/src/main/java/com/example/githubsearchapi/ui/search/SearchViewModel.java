@@ -1,9 +1,6 @@
 package com.example.githubsearchapi.ui.search;
 
 
-import android.view.View;
-import android.widget.TextView;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.paging.LivePagedListBuilder;

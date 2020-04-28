@@ -7,6 +7,10 @@ import com.example.githubsearchapi.di.PreferenceInfo;
 
 import javax.inject.Inject;
 
+/*
+ *  AppPreferencesHelper has implementation of PreferencesHelper
+ *  with SharedPreferences support
+ * */
 public class AppPreferencesHelper implements PreferencesHelper {
     private final SharedPreferences mPrefs;
 
