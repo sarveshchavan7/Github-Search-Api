@@ -23,8 +23,8 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         implements BaseFragment.Callback {
 
     private ProgressDialog mProgressDialog;
-    private T mViewDataBinding;
-    private V mViewModel;
+    protected T mViewDataBinding;
+    protected V mViewModel;
 
     public abstract int getBindingVariable();
 

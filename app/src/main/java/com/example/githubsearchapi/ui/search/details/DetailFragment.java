@@ -27,8 +27,6 @@ public class DetailFragment extends BaseFragment<FragmentDetailBinding, SearchVi
     private static final String TAG = DetailFragment.class.getSimpleName();
     @Inject
     ViewModelProviderFactory factory;
-    private SearchViewModel mSearchViewModel;
-    private FragmentDetailBinding mFragmentDetailBinding;
 
     @Inject
     public DetailContributorAdapter mDetailContributorAdapter;
@@ -45,33 +43,31 @@ public class DetailFragment extends BaseFragment<FragmentDetailBinding, SearchVi
 
     @Override
     public SearchViewModel getViewModel() {
-        mSearchViewModel = new ViewModelProvider(getBaseActivity(), factory).get(SearchViewModel.class);
-        return mSearchViewModel;
+        return new ViewModelProvider(getBaseActivity(), factory).get(SearchViewModel.class);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSearchViewModel.setNavigator(this);
+        mViewModel.setNavigator(this);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mFragmentDetailBinding = getViewDataBinding();
         initViews();
         observerContributorData();
     }
 
     private void observerContributorData() {
-        getViewModel().mContributorsLiveData.observe(getBaseActivity(),
+        mViewModel.mContributorsLiveData.observe(getBaseActivity(),
                 contributors -> mDetailContributorAdapter.updateContributorsList(contributors));
     }
 
     private void initViews() {
-        getBaseActivity().setSupportActionBar(mFragmentDetailBinding.toolBar);
-        mFragmentDetailBinding.rvContributor.setAdapter(mDetailContributorAdapter);
-        mFragmentDetailBinding.rvContributor.setLayoutManager(new GridLayoutManager(getBaseActivity(), 3));
+        getBaseActivity().setSupportActionBar(mViewDataBinding.toolBar);
+        mViewDataBinding.rvContributor.setAdapter(mDetailContributorAdapter);
+        mViewDataBinding.rvContributor.setLayoutManager(new GridLayoutManager(getBaseActivity(), 3));
     }
 
     @Override
@@ -90,7 +86,7 @@ public class DetailFragment extends BaseFragment<FragmentDetailBinding, SearchVi
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_VIEW);
             intent.addCategory(Intent.CATEGORY_BROWSABLE);
-            intent.setData(Uri.parse(mFragmentDetailBinding.tvProjectLink.getText().toString()));
+            intent.setData(Uri.parse(mViewDataBinding.tvProjectLink.getText().toString()));
             startActivity(intent);
         } catch (Exception e) {
             //TODO: log error

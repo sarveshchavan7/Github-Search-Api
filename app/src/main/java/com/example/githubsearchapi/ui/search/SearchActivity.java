@@ -23,8 +23,6 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding, SearchVi
 
     @Inject
     ViewModelProviderFactory factory;
-    private SearchViewModel mSearchViewModel;
-    private ActivitySearchBinding mActivitySearchBinding;
 
     @Override
     public int getBindingVariable() {
@@ -38,14 +36,12 @@ public class SearchActivity extends BaseActivity<ActivitySearchBinding, SearchVi
 
     @Override
     public SearchViewModel getViewModel() {
-        mSearchViewModel = new ViewModelProvider(this, factory).get(SearchViewModel.class);
-        return mSearchViewModel;
+        return new ViewModelProvider(this, factory).get(SearchViewModel.class);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mActivitySearchBinding = getViewDataBinding();
         setUpFragment();
         observeRepoClick();
     }

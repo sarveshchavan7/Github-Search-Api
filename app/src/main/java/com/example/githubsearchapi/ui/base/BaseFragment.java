@@ -18,8 +18,8 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
 
     private BaseActivity mActivity;
     private View mRootView;
-    private T mViewDataBinding;
-    private V mViewModel;
+    protected T mViewDataBinding;
+    protected V mViewModel;
 
     public abstract int getBindingVariable();
 
